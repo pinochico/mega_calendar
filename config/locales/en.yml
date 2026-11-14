@@ -1,4 +1,7 @@
 en:
+  # úprava RuB studio: popisky barev ve formuláři uživatele
+  mc_user_color: "Color"
+  mc_user_text_color: "Text color"
   calendar: "Calendar"
   holidays: "Holiday"
   holiday:  "Holiday"

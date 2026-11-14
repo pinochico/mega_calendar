@@ -1,4 +1,4 @@
-<%= javascript_include_tag :"jscolor/jscolor.js", :plugin => 'mega_calendar' %>
+<%# úprava RuB studio: výběr barvy knihovnou Coloris (z pluginu zz_primaton_login) místo jscolor; hodnoty se ukládají bez # jako dřív %>
 <%= error_messages_for 'user' %>
 <%
   user_color = UserColor.where({:user_id => @user.id}).first.color_code rescue ''
@@ -14,8 +14,8 @@
   <p><%= f.text_field :firstname, :required => true %></p>
   <p><%= f.text_field :lastname, :required => true %></p>
   <p><%= f.text_field :mail, :required => true %></p>
-  <p><label>Color:</label><input name="user[color]" class="color" type="text" value="<%= user_color %>" /></p>
-  <p><label>TextColor:</label><input name="user[text_color]" class="color" type="text" value="<%= text_color %>" /></p>
+  <p><label for="user_mc_color"><%= l(:mc_user_color) %></label><input id="user_mc_color" name="user[color]" type="text" data-pm-coloris="1" value="<%= user_color.present? ? "##{user_color.to_s.delete_prefix('#')}" : '' %>" /></p>
+  <p><label for="user_mc_text_color"><%= l(:mc_user_text_color) %></label><input id="user_mc_text_color" name="user[text_color]" type="text" data-pm-coloris="1" value="<%= text_color.present? ? "##{text_color.to_s.delete_prefix('#')}" : '' %>" /></p>
   <% unless @user.force_default_language? %>
   <p><%= f.select :language, lang_options_for_select %></p>
   <% end %>
@@ -41,14 +41,8 @@
   <p><%= f.check_box :must_change_passwd %></p>
   </div>
 </fieldset>
-<p class="mobile-hide">
-  <% if @user.new_record? %>
-    <%= submit_tag l(:button_create) %>
-    <%= submit_tag l(:button_create_and_continue), :name => 'continue' %>
-  <% else %>
-    <%= submit_tag l(:button_save) %>
-  <% end %>
-</p>
+<%# úprava RuB studio: tlačítka Uložit/Vytvořit přidaná v 2.0.4 pro Redmine 6.1+ odebrána – v Redmine 5.1 je má jádro
+    (users/new.html.erb, users/_general.html.erb), byla by dvakrát. %>
 </div>
 
 <div class="splitcontentright">

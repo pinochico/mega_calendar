@@ -6,13 +6,28 @@
 $(function(){
   var time_begin = '<%= time_begin_str %>';
   var time_end = '<%= time_end_str %>';
+  /* úprava RuB studio: čas vložit hned za datum (před „(Zbývá …)“ a před ikonu rychlé editace), ne na konec hodnoty */
+  function pmInsertTime($val, time) {
+    var el = $val[0], tn = null;
+    for (var i = 0; i < el.childNodes.length; i++) {
+      if (el.childNodes[i].nodeType === 3 && $.trim(el.childNodes[i].nodeValue)) { tn = el.childNodes[i]; break; }
+    }
+    if (!tn) { $val.append(' ' + time); return; }
+    var txt = tn.nodeValue, p = txt.indexOf(' (');
+    if (p < 0) {
+      var trail = txt.match(/\s*$/)[0];
+      tn.nodeValue = txt.slice(0, txt.length - trail.length) + ' ' + time + trail;
+    } else {
+      tn.nodeValue = txt.slice(0, p) + ' ' + time + txt.slice(p);
+    }
+  }
   if (time_begin) {
     var $start_val = $('.attributes div.start-date .value').first();
-    if ($start_val.length) { $start_val.append(' ' + time_begin); }
+    if ($start_val.length) { pmInsertTime($start_val, time_begin); }
   }
   if (time_end) {
     var $due_val = $('.attributes div.due-date .value').first();
-    if ($due_val.length) { $due_val.append(' ' + time_end); }
+    if ($due_val.length) { pmInsertTime($due_val, time_end); }
   }
 });
 </script>

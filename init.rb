@@ -103,11 +103,12 @@ require_dependency Rails.root.join('plugins','mega_calendar','lib','mega_calenda
 Redmine::Plugin.register :mega_calendar do
   name 'Mega Calendar plugin'
   author 'Andreas Treubert'
-  description 'Better calendar for redmine'
+  description 'Better calendar for redmine (úprava Rudolf Baláš, RuB studio: běh na Redmine 5.1)'
   version '2.0.4'
   url 'https://github.com/berti92/mega_calendar'
   author_url 'https://github.com/berti92'
-  requires_redmine :version_or_higher => '7.0.0'
+  # úprava RuB studio: 2.0.4 deklaruje Redmine 7.0.0; v kódu změn 2.0.0 → 2.0.4 není nic, co by Redmine 5.1 nemělo, kromě tlačítek v users/_form (upraveno), porovnáno 14. 11. 2026, neověřeno během
+  requires_redmine :version_or_higher => '5.1.1'
   menu(:top_menu, :calendar, { :controller => 'calendar', :action => 'index' }, :caption => :calendar, :if => Proc.new {(!Setting.plugin_mega_calendar['allowed_users'].blank? && Setting.plugin_mega_calendar['allowed_users'].include?(User.current.id.to_s) ? true : false)})
   menu(:top_menu, :holidays, { :controller => 'holidays', :action => 'index' }, :caption => :holidays, :if => Proc.new {(!Setting.plugin_mega_calendar['allowed_users'].blank? && Setting.plugin_mega_calendar['allowed_users'].include?(User.current.id.to_s) ? true : false)})
   settings :default => {
