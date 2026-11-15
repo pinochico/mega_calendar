@@ -99,6 +99,7 @@ require 'icalendar'
 require_dependency Rails.root.join('plugins','mega_calendar','lib','mega_calendar','users_controller_patch')
 require_dependency Rails.root.join('plugins','mega_calendar','lib','mega_calendar','issues_controller_patch')
 require_dependency Rails.root.join('plugins','mega_calendar','lib','mega_calendar','issues_hook')
+require_dependency Rails.root.join('plugins','mega_calendar','lib','mega_calendar','users_hook') # úprava RuB studio: barvy uživatele hookem místo přepisu users/_form
 
 Redmine::Plugin.register :mega_calendar do
   name 'Mega Calendar plugin'

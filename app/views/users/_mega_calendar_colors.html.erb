@@ -1,0 +1,10 @@
+<%# úprava RuB studio: pole barev uživatele pro Mega Kalendář, vkládá hook view_users_form (lib/mega_calendar/users_hook.rb).
+    Výběr barvy knihovnou Coloris (z pluginu zz_primaton_login, atribut data-pm-coloris); hodnoty se ukládají bez # jako dřív
+    (ukládá lib/mega_calendar/users_controller_patch.rb z parametrů user[color] a user[text_color]). %>
+<%
+  mc_user_color = UserColor.where({:user_id => user.id}).first
+  user_color = (mc_user_color.color_code rescue '')
+  text_color = (mc_user_color.text_color_code rescue '')
+%>
+<p><label for="user_mc_color"><%= l(:mc_user_color) %></label><input id="user_mc_color" name="user[color]" type="text" data-pm-coloris="1" value="<%= user_color.present? ? "##{user_color.to_s.delete_prefix('#')}" : '' %>" /></p>
+<p><label for="user_mc_text_color"><%= l(:mc_user_text_color) %></label><input id="user_mc_text_color" name="user[text_color]" type="text" data-pm-coloris="1" value="<%= text_color.present? ? "##{text_color.to_s.delete_prefix('#')}" : '' %>" /></p>
